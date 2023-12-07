@@ -86,7 +86,8 @@
 > - **克隆远程仓库**：git clone [url]
 > - **重命名当前分支名称**：git branch -M main
 > - **增加一个新的远程仓库并命名**：git remote add [shortname] [url]
-> - **将本地的主分支推送到远程**：git push -u origin main
+> - **将本地的主分支推送到远程**：git push -u [shortname] main
+> - **取回远程仓库的变化，并与本地分支合并**：git pull [remote] [branch]
 
 > - **列出所有本地分支**：git branch
 > - **列出所有远程分支**：git branch -r
@@ -97,7 +98,6 @@
 > - **合并指定分支到当前分支**：git merge [branch]
 > - **删除分支**：git branch -d [branch-name]
 > - **删除远程分支**：git push origin --delete [branch-name]     git branch -dr [remote/branch]
-> - **取回远程仓库的变化，并与本地分支合并**：git pull [remote] [branch]
 
 ### 3、常用的Linux命令
 
