@@ -77,27 +77,36 @@
 > - **本地仓库搭建**：git init
 > - **查看所有文件状态**：git status
 > - **查看指定文件状态**：git status [filename]
+> - **列出所有本地分支**：git branch
+> - **列出所有远程分支**：git branch -r
+> - **列出所有分支**：git branch -a 
+> - **显示所有远程仓库**：git remote -v
+
 > - **添加所有文件到暂存区**：git add .
 > - **添加指定文件到暂存区**：git add [file1] [file2]
-> - **提交暂存区到工作区**：git commit -m "消息内容"
+> - **提交暂存区到工作区**：git commit -m "注释"
 > - **删除工作区文件**：git rm [file1] [file2] ...
 > - **上传远程代码并合并**：git push
 > - **下载远程代码并合并**：git pull
 > - **克隆远程仓库**：git clone [url]
+
 > - **重命名当前分支名称**：git branch -M main
 > - **增加一个新的远程仓库并命名**：git remote add [shortname] [url]
 > - **将本地的主分支推送到远程**：git push -u [shortname] main
 > - **取回远程仓库的变化，并与本地分支合并**：git pull [remote] [branch]
 
-> - **列出所有本地分支**：git branch
-> - **列出所有远程分支**：git branch -r
-> - **列出所有分支**：git branch -a 
-> - **新建一个分支，但依然停留在当前分支**：git branch [branch-name]
-> - **新建一个分支，并切换到该分支**：git chechout -b [branch-name]
+> - **本地新建一个分支，但依然停留在当前分支**：git branch [branch-name]
+> - **本地新建一个分支，并切换到该分支**：git chechout -b [branch-name]
 > - **切换分支，并更新工作区**：git checkout [branch-name]
 > - **合并指定分支到当前分支**：git merge [branch]
 > - **删除分支**：git branch -d [branch-name]
 > - **删除远程分支**：git push origin --delete [branch-name]     git branch -dr [remote/branch]
+> - **推送本地dev分支到远程仓库**：git push origin dev
+> - **合并本地dev分支到master**：git checkout master
+> 	git merge dev
+
+> - **查看分支提交历史**：git log
+> - **退回到特定提交点**：git reset [commit]
 
 ### 3、常用的Linux命令
 
