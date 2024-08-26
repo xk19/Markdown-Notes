@@ -377,7 +377,7 @@
 
 >效果:
 >$\langle\quad\rangle\quad\lceil\quad\rceil\quad\lfloor\quad\rfloor\quad\lbrace\quad\rbrace\quad\lVert\quad\rVert$
->$f(x,y,z)=3y^2z\left(3+\dfrac{7x+5}{1+y^2}\right)$
+>$ $
 >$\left.\dfrac{\mathrm{d}u}{\mathrm{d}x}\right|_{x=0}$
 
 ### 4、分数

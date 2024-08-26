@@ -32,7 +32,7 @@
 
 ### 4、常用操作与状态
 
-![image-20231206170737290](C:/Users/admin/AppData/Roaming/Typora/typora-user-images/image-20231206170737290.png)
+![image-20240826172330827](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20240826172330827.png)
 
 > - **常用操作**：git add、git commit、git push、git pull、git checkout、git clone
 > - **四种状态**：Untracked、Unmodify、Modified、Staged
@@ -61,7 +61,7 @@
 >
 > - **配置密码**：git config --global user.email  “email”
 >
-> - **配置代理端口**：git config --global http.proxy http://127.0.0.1:10809    git config --global https.proxy http://127.0.0.1:10809
+> - **配置代理端口**：git config --global http.proxy http://127.0.0.1:7890    git config --global https.proxy http://127.0.0.1:7890
 >
 > - **删除代理端口**：git config --global --unset http.proxy                                git config --global --unset https.proxy
 >
@@ -147,3 +147,5 @@
 ## 四、参考
 
 [Git大全](https://gitee.com/all-about-git)
+
+[狂神说Git](https://www.bilibili.com/video/BV1FE411P7B3?p=1&vd_source=13dcf7fb782925cf156eabe37fb05412)
