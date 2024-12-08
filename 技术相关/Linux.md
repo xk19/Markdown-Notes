@@ -1,7 +1,9 @@
-### 1、常用Linux命令
+## 一、常用Linux命令
 
-> - 罗列文件：ls -[o]\[f]
-> - 罗列文件及属性：ls -l
+### 1、文件操作
+
+> - 罗列文件：ls -[command]
+> - 罗列文件及属性：ls -l / ll
 > - 显示所有文件，包含隐藏文件：ls -a
 > - 显示当前文件夹：pwd
 > - 进入用户主目录 ：cd
@@ -15,6 +17,7 @@
 > - 创建隐藏文件：touch .[filename]
 > - 删除空目录：rmdir [filename]
 > - 删除文件：rm [-r(递归)、-f(强制)] [filename]
+> - 删除当前所有文件：rm * -rf
 > - 拷贝文件：cp [-r(递归)、-f(强制)] [filename] [directory]
 > - 移动文件或者目录：mv [filename] [directory]
 > - 文件重命名：mv [filename] [filename]
@@ -38,37 +41,109 @@
 >
 > ​                           tar -xzf [filename.tgz]
 >
-> - 文件解压到指定路径：unzip [filename1.zip] -d [directory]
+> - 文件解压到指定路径：unzip [filename.zip] -d [directory]
+>
+> ​                                              tar zxvf [filename1.zip] -C [directory]
 
-> - 超级用户：sudo
+### 2、用户及权限
+
 > - 新建用户：adduser [username]
 > - 设置用户密码：passwd [username]
 > - 删除用户：userdel -r [username]
+> - 查询登入主机：who
+> - 查询当前用户：whoami
+> - 退出当前用户：ctrl+d
+> - 普通用户切换成root用户：su / su -
+> - root用户切换成普通用户：su [username]
+> - 普通用户用root身份执行命令：sudo [command]
+> - 给用户添加sudo权限：
+>
+> ```
+> 1、su切换成root用户	2、ls /etc/sudoers	3、vim /etc/sudoers
+> 4、第100行前后对应部分，加入username ALL=(ALL) ALL	5、强制写入和退出
+> ```
 
+> - 修改own的文件权限：chmod u[+/-]\[r/w/x] [filename]
+> - 修改group的文件权限：chmod g[+/-]\[r/w/x] [filename]
+> - 修改other的文件权限：chmod o[+/-]\[r/w/x] [filename]
+> - 同步修改所有人的文件权限：chmod  a[+/-]\[r/w/x] [filename]
+> - 以八进制修改文件权限：chmod  [777] [filename]
+> - 修改文件的own：sudo chown [own] [filename]
+> - 修改文件的group：sudo chgrp [own] [filename]
+> - 给目录添加粘滞位：chmod  +t [filename]
+
+### 3、网络
+
+> 
+
+### 4、其他命令
+
+> - 命令自动补齐：部分字符+TAB
 > - 查询Linux帮助手册：man [command]
-> - 查询相关命令：部分字符+TAB
-> - 终止进程：ctrl+c
+> - 终止前台的异常进程：ctrl+c
+> - 搜索历史命令：ctrl+r
+> - 匹符配任意字符的通配符：*
+> - 查新系统信息/架构：uname -a/r
+> - 查看CPU情况：lscpu
+> - 查看内存信息：lsmem
+> - 查看磁盘使用情况：df -h
 > - 搜索命令：which [command]
 > - 对命令重命名：alisas  [name] = ‘[command]’
 
-### 2、XShell命令
+## 二、常用软件包及命令
 
-> - 登入：ssh [username@IP]      (root@43.143.222.136)
+### 1、XShell命令
+
+> - 登入：ssh [username@IP]      (username@43.143.222.136    腾讯云)
 > - 退出登入：logout
 > - 复制：ctrl insert
 > - 粘贴：shift insert
 
-### 3、Vim编辑器
+### 2、Vim编辑器
 
->- 进入Vim工作模式：vim filename
->- 退出Vim工作模式：命令模式下输入wq
+>- 打开文件并进入命令模式：vim [filename]
 >- 切换到命令模式：Esc
->- 切换到输入模式：输入i/a/o
->- 切换到底部命令模式：输入":"
+>- 切换到插入模式：输入i/a/o
+>- 命令模式下切换到底行模式：shift + ’:‘
+>- 退出vim：底行模式下输入wq
 >- 停止界面刷新：ctrl  s
 >- 恢复界面刷新：ctrl q
 
-### 4、GCC/G++/GDB
+>- （以下操作均为命令模式下）
+>- 光标定位行右：shift 4
+>- 光标定位行左：shift 6
+>- 光标定位底部：shift g
+>- 光标定位顶部：gg
+>- 跳转光标到第[n]行：[n] shift g
+>- 复制光标所在行以下[n]行：[n]yy
+>- 粘贴n遍复制的内容：[n]p
+>- 撤销操作：u
+>- 取消撤销：ctrl u
+>- 删除光标所在行以下[n]：[n]dd
+>- 剪切光标所在行以下[n]并粘贴：[n]dd + p
+>- 大小写转换：shift ~
+>- 批量化替换：shift r
+>- 单字符替换：r
+>- 行内向后/向前删除（可用nx）：x / shift x
+
+>- （以下操作均为底行模式）
+>- 设置/取消行号：set nu / nonu
+>- 保存与退出：w（保存） q（退出） ！（强制）
+>- 拷贝文件并分屏：vs
+>- 光标跨屏：ctrl ww
+>- 底行执行Linux命令：！ [command]
+>- 底行执行Linux命令后退出：q
+>- 用[a]替换文本中的[b]：%s/[a]/[b]/g
+
+>- 针对单个用户配置vim：
+>
+>```
+>1、cd ~		2、touch .vimrc（该文件下增加配置设置）
+>3、如果是Centos7，针对单个用户建议配置一键配置vim（不推荐root下）：
+>curl -sLf https://gitee.com/HGtz2222/VimForCpp/raw/master/install.sh -o ./install.sh && bash ./install.sh
+>```
+
+### 3、GCC/G++/GDB
 
 > - 安装C++编译器：sudo yum install gcc-c++
 >
@@ -80,8 +155,18 @@
 >
 > - 运行可执行文件test.out：./test.out
 
-### 常用包安装
+### 4、安装软件yum
+
+> - 安装软件：[sudo(提权)] yum install [-y(全部默认安装)] [package]
+> - 搜索可安装的相关文件：yum list | grep [keyword]
+> - 卸载软件：yum remove [-y(全部默认卸载)] [package]
+> - 查看yum源（Base为yum默认采用）：ls /etc/yum.repos.d/          vim /etc/yum.repos.d/CentOs-Base.repo
+> - 安装非官方的软件集合列表：yum install -y epel-release
+
+### 其他常用包安装
 
 > - 树状图目录显示包tree：sudo yum install tree
 > - 文件压缩/解压包zip：sudo yum install zip unzip
+> - 记事本nano：sudo yum install -y nano
+> - 互传文件lrzsz：sudo yum install -y lrzxz
 
