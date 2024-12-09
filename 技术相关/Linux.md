@@ -45,6 +45,9 @@
 >
 > ​                                              tar zxvf [filename1.zip] -C [directory]
 
+> - 查看文件相关信息：file [filename]
+> - 列出可执行文件或者共享库文件所的依赖：ldd [filename]
+
 ### 2、用户及权限
 
 > - 新建用户：adduser [username]
@@ -129,7 +132,7 @@
 >- （以下操作均为底行模式）
 >- 设置/取消行号：set nu / nonu
 >- 保存与退出：w（保存） q（退出） ！（强制）
->- 拷贝文件并分屏：vs
+>- 分屏：vs
 >- 光标跨屏：ctrl ww
 >- 底行执行Linux命令：！ [command]
 >- 底行执行Linux命令后退出：q
@@ -151,9 +154,31 @@
 >
 > - 查询g++版本：g++  --versiom
 >
-> - 生成可执行文件test.out：g++ [test.cpp] -o [test]
+> - 生成预处理文件：g++ -E [test.cpp] -o [test.i]
+>
+> - 生成汇编语言：g++ -S [test.i] -o [test.s]
+>
+> - 生成二进制目标文件：g++ -c [test.s] -o [test.o]
+>
+> - 链接生成可执行文件：g++ [test.o]
+>
+> - 生成可执行文件：g++ [test.cpp] -o [test]
 >
 > - 运行可执行文件test.out：./test.out
+>
+> - 静态链接并生成可执行该文件：gcc [test.cpp] -o [test] -static
+
+> - 编译成release版本：gcc [test.cpp] -o [test] -g
+> - 调试文件：gdb [namefile]
+> - （以下是在调试模式下）
+> - 显示代码：l
+> - 在第[n]行打断点：b [n]
+> - 查看断点：info b
+> - 去掉第[n]个断点：d b [n]
+> - 运行程序：r（run）
+> - 单步执行：n（next）
+> - 进入函数调用：s（step）
+> - 
 
 ### 4、安装软件yum
 
@@ -163,10 +188,16 @@
 > - 查看yum源（Base为yum默认采用）：ls /etc/yum.repos.d/          vim /etc/yum.repos.d/CentOs-Base.repo
 > - 安装非官方的软件集合列表：yum install -y epel-release
 
+### 5、Make/Makefile
+
+> 
+
 ### 其他常用包安装
 
 > - 树状图目录显示包tree：sudo yum install tree
 > - 文件压缩/解压包zip：sudo yum install zip unzip
 > - 记事本nano：sudo yum install -y nano
 > - 互传文件lrzsz：sudo yum install -y lrzxz
+> - 对centos安装c语言静态链接库：sudo yum install -y glibc-static
+> - 对centos安装c++静态链接库：sudo yum install -y libstdc++-static
 
