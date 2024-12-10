@@ -45,7 +45,9 @@
 >
 > ​                                              tar zxvf [filename1.zip] -C [directory]
 
-> - 查看文件相关信息：file [filename]
+> - 查看文件的状态信息：stat [filename]
+> - 更新文件时间：touchu [filename]
+> - 查看文件类型及编码格式：file [filename]
 > - 列出可执行文件或者共享库文件所的依赖：ldd [filename]
 
 ### 2、用户及权限
@@ -92,6 +94,11 @@
 > - 查看磁盘使用情况：df -h
 > - 搜索命令：which [command]
 > - 对命令重命名：alisas  [name] = ‘[command]’
+
+### 5、函数
+
+> - 延时函数：sleep(n)      需要包含头文件unistd.h
+> - 强制程序刷新输出：fflsh(stdout)
 
 ## 二、常用软件包及命令
 
@@ -190,7 +197,28 @@
 
 ### 5、Make/Makefile
 
+> make命令：运行Makefile（m大小写均可），默认从上到下，只形成一个可执行文件
+>
+> Makefile组成：
+>
+> ```
+> # 定义变量
+> CC = gcc
+> CFLAGS = -Wall
 > 
+> # 规则：从 .c 文件生成 .o 文件
+> %.o: %.c
+>     $(CC) $(CFLAGS) -c $< -o $@
+> 
+> # 规则：从 .o 文件生成可执行文件
+> program: main.o
+>     $(CC) -o program main.o
+> 
+> # 伪目标(总是被执行)：清理构建文件
+> .PHONY: clean
+> clean:
+>     rm -f *.o program
+> ```
 
 ### 其他常用包安装
 
