@@ -86,6 +86,7 @@
 > - **添加指定文件到暂存区**：git add [file1] [file2]
 > - **提交暂存区到工作区**：git commit -m "注释"
 > - **删除工作区文件**：git rm [file1] [file2] ...
+> - **重命名工作区文件**：git mv [file1] [file2]
 > - **上传远程代码并合并**：git push
 > - **下载远程代码并合并**：git pull
 > - **克隆远程仓库**：git clone [url]

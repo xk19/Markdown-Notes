@@ -9,6 +9,7 @@
 > - 进入用户主目录 ：cd
 > - 返回进入之前的目录：cd -
 > - 返回到上级目录：cd ..
+> - 显示某个文件夹：ls [directory] -d
 
 > - 创建文件：touch [filename]
 > - 重定向的方式创建文件：>[filename]
@@ -77,11 +78,23 @@
 > - 修改文件的group：sudo chgrp [own] [filename]
 > - 给目录添加粘滞位：chmod  +t [filename]
 
-### 3、网络
+### 3、进程
+
+> - 查看进程：ps ajx | grep '[processname]'         （还可以通过ls /proc查看）
+>
+> - 查找并查看进程对应信息：ps ajx | head -1 && ps ajx | grep '[processname]'
+> - 获取进程信息：getpid()      包含头文件<sys/types.h>
+> - 获取父进程信息：getppid()      包含头文件<sys/types.h>
+>
+> - 创建子进程：fork()    包含头文件<unistd.h> 
+>
+> - 杀死进程：kill -9 [PID]
+
+### 4、网络
 
 > 
 
-### 4、其他命令
+### 5、其他命令
 
 > - 命令自动补齐：部分字符+TAB
 > - 查询Linux帮助手册：man [command]
@@ -95,10 +108,11 @@
 > - 搜索命令：which [command]
 > - 对命令重命名：alisas  [name] = ‘[command]’
 
-### 5、函数
+### 6、函数
 
-> - 延时函数：sleep(n)      需要包含头文件unistd.h
+> - 延时函数：sleep(n)      需要包含头文件<unistd.h>
 > - 强制程序刷新输出：fflsh(stdout)
+> - 
 
 ## 二、常用软件包及命令
 
@@ -128,7 +142,7 @@
 >- 复制光标所在行以下[n]行：[n]yy
 >- 粘贴n遍复制的内容：[n]p
 >- 撤销操作：u
->- 取消撤销：ctrl u
+>- 取消撤销：ctrl r
 >- 删除光标所在行以下[n]：[n]dd
 >- 剪切光标所在行以下[n]并粘贴：[n]dd + p
 >- 大小写转换：shift ~
@@ -178,14 +192,24 @@
 > - 编译成release版本：gcc [test.cpp] -o [test] -g
 > - 调试文件：gdb [namefile]
 > - （以下是在调试模式下）
-> - 显示代码：l
+> - 显示代码：l      （后面加n从n行开始显示，回车继续显示）
 > - 在第[n]行打断点：b [n]
 > - 查看断点：info b
-> - 去掉第[n]个断点：d b [n]
+> - 去掉第[n]个断点：d [n]
 > - 运行程序：r（run）
 > - 单步执行：n（next）
 > - 进入函数调用：s（step）
-> - 
+> - 运行至下一个断点处：c（continue）
+> - 查看堆栈：bt
+> - 直接运行到将当前函数跑完：finish
+> - 查看变量：p [var]
+> - 修改变量的值：set [var]
+> - 常显示变量：display [var]
+> - 常显示地址：display &[var]
+> - 取消常显示编号为[n]的变量或地址：display [n]
+> - 查看当前栈帧局部变量的值：info locals
+> - 直接跳转到第[n]行：until [n]
+> - 退出：quit
 
 ### 4、安装软件yum
 
@@ -228,4 +252,5 @@
 > - 互传文件lrzsz：sudo yum install -y lrzxz
 > - 对centos安装c语言静态链接库：sudo yum install -y glibc-static
 > - 对centos安装c++静态链接库：sudo yum install -y libstdc++-static
+> - Linux帮助手册：sudo yum install -y man-pages
 
