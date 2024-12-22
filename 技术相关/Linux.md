@@ -51,6 +51,25 @@
 > - 查看文件类型及编码格式：file [filename]
 > - 列出可执行文件或者共享库文件所的依赖：ldd [filename]
 
+> - 以下为系统接口函数（头文件查询手册man 2）
+>
+> - 文件打开：open（[*pathname], [flags], [mode]）
+>
+> - 文件关闭：close（[fd]）
+>
+> - 文件写入：write（[fd], [*buf], count）
+>
+> - 文件读取：read（[fd], [*buf], count）
+>
+> - 更改进程umask：umans（[mask]）
+>
+>   ```
+>   系统调用接口：open / close / write / read / lseek
+>   库函数接口：fopen / fclose / fwrite / fread / fseek
+>   ```
+>
+> - 文件重定向：dup2（[oldfd], [newfd]）
+
 ### 2、用户及权限
 
 > - 新建用户：adduser [username]
@@ -59,15 +78,15 @@
 > - 查询登入主机：who
 > - 查询当前用户：whoami
 > - 退出当前用户：ctrl+d
-> - 普通用户切换成root用户：su / su -
+> - 普通用户切换成root用户：su / su -    （只有su -会重新登入，并切换环境变量和配置文件）
 > - root用户切换成普通用户：su [username]
 > - 普通用户用root身份执行命令：sudo [command]
 > - 给用户添加sudo权限：
 >
-> ```
-> 1、su切换成root用户	2、ls /etc/sudoers	3、vim /etc/sudoers
-> 4、第100行前后对应部分，加入username ALL=(ALL) ALL	5、强制写入和退出
-> ```
+>   ```
+>   1、su切换成root用户	2、ls /etc/sudoers	3、vim /etc/sudoers
+>   4、第100行前后对应部分，加入username ALL=(ALL) ALL	5、强制写入和退出
+>   ```
 
 > - 修改own的文件权限：chmod u[+/-]\[r/w/x] [filename]
 > - 修改group的文件权限：chmod g[+/-]\[r/w/x] [filename]
@@ -80,19 +99,88 @@
 
 ### 3、进程
 
-> - 查看进程：ps ajx | grep '[processname]'         （还可以通过ls /proc查看）
+> - 状态说明：R（running 运行）   R+（前台运行）S（sleeping 睡眠/阻塞）
+>
+>   ​		   T（stopped 停止） t（tracing stop 停止） Z（Zombies 僵尸）
+>
+> - 查看进程：ps  -la
+>
+> - 查看特定进程：ps ajx | grep '[processname]'         （还可以通过ls /proc查看）
 >
 > - 查找并查看进程对应信息：ps ajx | head -1 && ps ajx | grep '[processname]'
+>
+> - 进程监控脚本：while :; do ps ajx | head -1 && ps ajx | grep '[processname]' | grep -v grep; sleep 1; done
+>
 > - 获取进程信息：getpid()      包含头文件<sys/types.h>
+>
 > - 获取父进程信息：getppid()      包含头文件<sys/types.h>
 >
-> - 创建子进程：fork()    包含头文件<unistd.h> 
+> - 创建子进程：fork()    包含头文件<unistd.h>
+>
+> - 查看kill选项：kill -l 
 >
 > - 杀死进程：kill -9 [PID]
+>
+> - 暂停进程：kill -19 [PID]
+>
+> - 继续进程：kill -18 [PID]
+>
+> - 返回最近一个进程的退出码：echo $?
+>
+> - 退出码函数：strerror(i)      需要包含头文件<string.h>
+>
+> - 进程退出：
+>
+>   ```
+>   #include<stdlib.h>
+>   exit(n)     库函数，主动刷新缓冲区
+>   _exit(n)    系统调用，不会刷新缓冲区
+>   return [n]  n为退出码
+>   WIFEXITED(status)  是否正常退出
+>   WEXITSTATUS（status） 判断子进程运行结果是否OK
+>   ```
+>
+> - 进程等待：
+>
+>   ```
+>   wait(&status)     包含头文件<sys/types.h>和<sys/wait.h>
+>   wait(pid, &status, option)
+>   ```
+>
+> - 进程替换函数：
+>
+>   ```
+>   #include<unistd.h>
+>   int execl(const char *path, const char *arg, ...);
+>   int execlp(const char *file, const char *arg, ...);
+>   int execle(const char *path, const char *arg, ...,char *const envp[]);
+>   int execv(const char *path, char *const argv[]);
+>   int execvp(const char *file, char *const argv[]);
+>   ```
+>
+> - 修改进程的当前目录：chdir([directory])          包含头文件<uinistd.h>
+
+> - 查看环境变量：echo $PATH
+>
+> - 将路径加入到环境变量中：export PATH=$PATH:[directory]
+>
+> - 导入一个局部环境变量：export [valname] = [n]
+>
+> - 查看全局环境变量：env | grep [valname]
+>
+> - 查看本地定义的shell变量或者全局环境变量：set | grep [valname]
+>
+> - 查看某个环境变量：echo &[valname]
+>
+> - 清除环境变量：unset [valname]
+>
+> - 代码中获取环境变量：getenv()      包含头文件<stdio.h>
+>
+>   ​       				environ      包含头文件<unistd.h>
 
 ### 4、网络
 
-> 
+> - 查询公网IP地址：curl ifconfig.me
 
 ### 5、其他命令
 
@@ -110,9 +198,13 @@
 
 ### 6、函数
 
-> - 延时函数：sleep(n)      需要包含头文件<unistd.h>
+> - 延时函数：sleep(n)      包含头文件<unistd.h>
 > - 强制程序刷新输出：fflsh(stdout)
-> - 
+> - 获取输入字符流：fgets(*[s], [size], *[stream])         包含头文件<stdio.h>
+> - 字符串切割函数：strtok([str], " ")              包含头文件<string.h>
+> - 检查空格：isspace([ch])      包含头文件<ctype.h>
+> - 字符串转整形：atoi([str])   /   stoi([str])
+> - 整形转字符串：itoa([str]) 
 
 ## 二、常用软件包及命令
 
@@ -138,7 +230,7 @@
 >- 光标定位行左：shift 6
 >- 光标定位底部：shift g
 >- 光标定位顶部：gg
->- 跳转光标到第[n]行：[n] shift g
+>-  跳转光标到第[n]行：[n] shift g
 >- 复制光标所在行以下[n]行：[n]yy
 >- 粘贴n遍复制的内容：[n]p
 >- 撤销操作：u
@@ -147,6 +239,7 @@
 >- 剪切光标所在行以下[n]并粘贴：[n]dd + p
 >- 大小写转换：shift ~
 >- 批量化替换：shift r
+>- 批量化注释：ctri v + j/k + I + // + ESC
 >- 单字符替换：r
 >- 行内向后/向前删除（可用nx）：x / shift x
 
@@ -161,11 +254,12 @@
 
 >- 针对单个用户配置vim：
 >
->```
->1、cd ~		2、touch .vimrc（该文件下增加配置设置）
->3、如果是Centos7，针对单个用户建议配置一键配置vim（不推荐root下）：
->curl -sLf https://gitee.com/HGtz2222/VimForCpp/raw/master/install.sh -o ./install.sh && bash ./install.sh
->```
+>  ```
+>  1、cd ~		2、touch .vimrc（该文件下增加配置设置）
+>  3、如果是Centos7，针对单个用户建议配置一键配置vim（不推荐root下）：
+>  curl -sLf https://gitee.com/HGtz2222/VimForCpp/raw/master/install.sh -o ./install.sh && bash ./install.sh
+>  ```
+>
 
 ### 3、GCC/G++/GDB
 
@@ -230,19 +324,17 @@
 > CC = gcc
 > CFLAGS = -Wall
 > 
-> # 规则：从 .c 文件生成 .o 文件
-> %.o: %.c
->     $(CC) $(CFLAGS) -c $< -o $@
-> 
-> # 规则：从 .o 文件生成可执行文件
-> program: main.o
->     $(CC) -o program main.o
+> # 规则：从依赖文件生成目标文件（可用$@代表：左侧的文件，$^代表：右侧的文件）
+> [object]: [source .c]
+> 	gcc -o [object] [source .c]
 > 
 > # 伪目标(总是被执行)：清理构建文件
 > .PHONY: clean
 > clean:
->     rm -f *.o program
+>   rm -f *.o program
 > ```
+>
+> 注释：#
 
 ### 其他常用包安装
 
