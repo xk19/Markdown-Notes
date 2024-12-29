@@ -26,10 +26,12 @@
 > - 显示文本内信息：cat/tac/more/less [filename]
 > - 显示文件前/后几行：head/tail -[k] [filename]
 > - 显示1000-1010行：head -1010 [filename] | tail -10
->
 > - 显示文件具体信息：stat [filename]
 > - 显示当前文件树状结构：tree .
 > - 输出字符或者字符串：echo
+> - 输入重定向：<
+> - 输出重定向：>
+> - 输出追加重定向：>
 
 > - 文本内容行匹配：grep [-n(带行输出) -i(忽略大小写) -v(方向选择)] ’[keyword]‘ [filename]
 > - 文本内容排序：sort [filename]
@@ -61,7 +63,7 @@
 >
 > - 文件读取：read（[fd], [*buf], count）
 >
-> - 更改进程umask：umans（[mask]）
+> - 更改进程  ans（[mask]）
 >
 >   ```
 >   系统调用接口：open / close / write / read / lseek
